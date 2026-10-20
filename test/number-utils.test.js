@@ -13,3 +13,7 @@ test("returns zero for an empty array", () => {
 test("rejects non-array input", () => {
   assert.throws(() => sumNumbers("10,20"), TypeError);
 });
+
+test("rejects non-number array elements", () => {
+  assert.throws(() => sumNumbers([10, "20"]), TypeError);
+});
