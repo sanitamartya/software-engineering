@@ -17,3 +17,7 @@ test("rejects non-array input", () => {
 test("rejects non-number array elements", () => {
   assert.throws(() => sumNumbers([10, "20"]), TypeError);
 });
+
+test("rejects non-finite numbers", () => {
+  assert.throws(() => sumNumbers([10, NaN]), TypeError);
+});
