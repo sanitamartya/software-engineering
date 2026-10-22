@@ -17,3 +17,29 @@ test("unknown routes return 404", async () => {
   assert.equal(response.status, 404);
   assert.deepEqual(response.body, { error: "Not Found" });
 });
+
+test("error handler returns 500 and a generic message", () => {
+  const errorHandler = require("../src/error-handler");
+
+  let statusCode;
+  let responseBody;
+
+  const req = {};
+  const res = {
+    status(code) {
+      statusCode = code;
+      return this;
+    },
+    json(body) {
+      responseBody = body;
+      return this;
+    },
+  };
+
+  errorHandler(new Error("Test error"), req, res, () => {});
+
+  assert.equal(statusCode, 500);
+  assert.deepEqual(responseBody, {
+    error: "Internal Server Error",
+  });
+});
